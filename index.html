@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>SYSTEM ACCESS</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+    font-family: monospace;
+    color: #00ff00;
+}
+
+/* MATRIX */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* CENTRO */
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* VENTANA */
+.window {
+    border: 2px solid #00ff00;
+    padding: 25px;
+    width: 420px;
+    background: rgba(0,0,0,0.9);
+    box-shadow: 0 0 25px #00ff00;
+}
+
+/* BOTONES */
+button {
+    margin: 10px;
+    padding: 8px 14px;
+    background: black;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #00ff00;
+    color: black;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="center" id="screen">
+    <h2 id="text">Iniciando sistema...</h2>
+</div>
+
+<script>
+/* ================= MATRIX ================= */
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&@";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+const drops = Array(Math.floor(columns)).fill(1);
+
+function draw() {
+    ctx.fillStyle = "rgba(0,0,0,0.08)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle = "#00ff00";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+        drops[i]++;
+    }
+}
+
+setInterval(draw, 33);
+
+/* ================= TEXTO ================= */
+const messages = [
+    "Iniciando sistema...",
+    "Escaneando entorno...",
+    "Cargando módulos...",
+    "Verificando permisos...",
+    "Acceso parcial concedido",
+    "⚠ ANOMALÍA DETECTADA ⚠"
+];
+
+let i = 0;
+const text = document.getElementById("text");
+
+function type(msg, cb) {
+    text.innerHTML = "";
+    let j = 0;
+
+    const interval = setInterval(() => {
+        text.innerHTML += msg[j];
+        j++;
+        if (j >= msg.length) {
+            clearInterval(interval);
+            setTimeout(cb, 800);
+        }
+    }, 40);
+}
+
+function run() {
+    if (i < messages.length) {
+        type(messages[i], () => {
+            i++;
+            run();
+        });
+    } else {
+        showWindow();
+    }
+}
+
+/* ================= VENTANA FINAL ================= */
+function showWindow() {
+    document.getElementById("screen").innerHTML = `
+        <div class="window">
+            <h2>⚠ SISTEMA INESTABLE ⚠</h2>
+            <p>Se detectó corrupción en procesos internos.</p>
+            <p>¿Deseas continuar?</p>
+
+            <button onclick="alert('Proceso detenido')">Cancelar</button>
+            <button onclick="final()">Aceptar</button>
+        </div>
+    `;
+}
+
+/* FINAL SIMULADO */
+function final() {
+    document.body.innerHTML = `
+        <div style="color:#00ff00; font-family:monospace; text-align:center; padding-top:20%;">
+            <h1>✔ SECUENCIA COMPLETADA</h1>
+            <p>Entorno restaurado.</p>
+        </div>
+    `;
+}
+
+run();
+</script>
+
+</body>
+</html>
