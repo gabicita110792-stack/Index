@@ -1,165 +1,301 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>SYSTEM ACCESS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚠️ VIRUS DETECTED ⚠️</title>
+    <meta property="og:title" content="⚠️ ¡HAS SIDO INFECTADO! ⚠️">
+    <meta property="og:description" content="🦠 Haz clic si te atreves... Tu dispositivo ha sido 'infectado' con este juego viral 😈">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630?text=VIRUS+DETECTED">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-body {
-    margin: 0;
-    background: black;
-    overflow: hidden;
-    font-family: monospace;
-    color: #00ff00;
-}
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(45deg, #ff0000, #000000);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
 
-/* MATRIX */
-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
+        .glitch {
+            animation: glitch 0.3s infinite;
+        }
 
-/* CENTRO */
-.center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
 
-/* VENTANA */
-.window {
-    border: 2px solid #00ff00;
-    padding: 25px;
-    width: 420px;
-    background: rgba(0,0,0,0.9);
-    box-shadow: 0 0 25px #00ff00;
-}
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 30px #ff0000, inset 0 0 30px rgba(255, 0, 0, 0.3);
+            max-width: 600px;
+            position: relative;
+            z-index: 10;
+            animation: pulse-border 1s infinite;
+        }
 
-/* BOTONES */
-button {
-    margin: 10px;
-    padding: 8px 14px;
-    background: black;
-    color: #00ff00;
-    border: 1px solid #00ff00;
-    cursor: pointer;
-}
+        @keyframes pulse-border {
+            0%, 100% { box-shadow: 0 0 30px #ff0000, inset 0 0 30px rgba(255, 0, 0, 0.3); }
+            50% { box-shadow: 0 0 50px #ff0000, inset 0 0 50px rgba(255, 0, 0, 0.5); }
+        }
 
-button:hover {
-    background: #00ff00;
-    color: black;
-}
-</style>
+        h1 {
+            color: #ff0000;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #ff0000;
+            animation: glitch 0.3s infinite;
+        }
+
+        .virus-icon {
+            font-size: 4em;
+            margin: 20px 0;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .warning {
+            color: #ffff00;
+            font-size: 1.2em;
+            margin: 20px 0;
+            text-shadow: 0 0 5px #ffff00;
+            line-height: 1.6;
+        }
+
+        .status {
+            color: #00ff00;
+            margin: 15px 0;
+            font-size: 0.9em;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .infection-level {
+            width: 100%;
+            height: 30px;
+            background: #333;
+            border: 2px solid #ff0000;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .infection-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff6600);
+            width: 0%;
+            animation: infect 3s ease-in-out infinite;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        @keyframes infect {
+            0%, 100% { width: 0%; }
+            50% { width: 100%; }
+        }
+
+        .button-container {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: 2px solid;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
+        }
+
+        .btn-infected {
+            background: #ff0000;
+            color: #000;
+            border-color: #ff6600;
+        }
+
+        .btn-infected:hover {
+            background: #ff6600;
+            box-shadow: 0 0 20px #ff0000;
+            transform: scale(1.1);
+        }
+
+        .btn-spread {
+            background: #00ff00;
+            color: #000;
+            border-color: #00ff00;
+        }
+
+        .btn-spread:hover {
+            background: #00aa00;
+            box-shadow: 0 0 20px #00ff00;
+            transform: scale(1.1);
+        }
+
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff0000;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: float 4s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        .share-text {
+            color: #ffff00;
+            margin-top: 20px;
+            font-size: 0.9em;
+            text-shadow: 0 0 5px #ffff00;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            .virus-icon {
+                font-size: 3em;
+            }
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <h1>⚠️ VIRUS DETECTADO ⚠️</h1>
+        <div class="virus-icon">🦠</div>
+        
+        <div class="warning">
+            <p>¡OH NO! Tu dispositivo ha sido "infectado" 😱</p>
+            <p>Este es un virus VIRAL... ¡de diversión! 😈</p>
+        </div>
 
-<canvas id="matrix"></canvas>
+        <div class="status">
+            ▓▓▓ Analizando sistema... ▓▓▓
+        </div>
 
-<div class="center" id="screen">
-    <h2 id="text">Iniciando sistema...</h2>
-</div>
+        <div class="infection-level">
+            <div class="infection-bar"></div>
+        </div>
 
-<script>
-/* ================= MATRIX ================= */
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+        <div class="status">
+            ➤ NIVEL DE INFECCIÓN: 99%
+        </div>
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+        <div class="button-container">
+            <button class="btn-infected" onclick="clickInfected()">ESTOY INFECTADO 😱</button>
+            <button class="btn-spread" onclick="spreadVirus()">🦠 PROPAGAR 🦠</button>
+        </div>
 
-const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&@";
-const fontSize = 14;
-const columns = canvas.width / fontSize;
-const drops = Array(Math.floor(columns)).fill(1);
+        <div class="share-text">
+            Comparte este "virus" con tus amigos en WhatsApp 📱
+        </div>
+    </div>
 
-function draw() {
-    ctx.fillStyle = "rgba(0,0,0,0.08)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    ctx.fillStyle = "#00ff00";
-    ctx.font = fontSize + "px monospace";
-
-    for (let i = 0; i < drops.length; i++) {
-        const text = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
+    <script>
+        // Crear partículas flotantes
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.top = window.innerHeight + 'px';
+                particle.style.animationDelay = Math.random() * 4 + 's';
+                container.appendChild(particle);
+            }
         }
-        drops[i]++;
-    }
-}
 
-setInterval(draw, 33);
-
-/* ================= TEXTO ================= */
-const messages = [
-    "Iniciando sistema...",
-    "Escaneando entorno...",
-    "Cargando módulos...",
-    "Verificando permisos...",
-    "Acceso parcial concedido",
-    "⚠ ANOMALÍA DETECTADA ⚠"
-];
-
-let i = 0;
-const text = document.getElementById("text");
-
-function type(msg, cb) {
-    text.innerHTML = "";
-    let j = 0;
-
-    const interval = setInterval(() => {
-        text.innerHTML += msg[j];
-        j++;
-        if (j >= msg.length) {
-            clearInterval(interval);
-            setTimeout(cb, 800);
+        // Efectos cuando haces clic en "ESTOY INFECTADO"
+        function clickInfected() {
+            document.querySelector('.container').classList.add('glitch');
+            alert('🦠 ¡FELICIDADES! ¡ESTÁS INFECTADO CON DIVERSIÓN! 🎉\n\nAhora propaga este "virus" divertido a tus amigos 😄');
+            document.querySelector('.container').classList.remove('glitch');
         }
-    }, 40);
-}
 
-function run() {
-    if (i < messages.length) {
-        type(messages[i], () => {
-            i++;
-            run();
+        // Generar link para WhatsApp
+        function spreadVirus() {
+            const url = window.location.href;
+            const message = encodeURIComponent(`🦠 ¡HAS SIDO INFECTADO! 🦠\n\n⚠️ Tu dispositivo ha sido "infectado" con este juego viral 😈\n\nHaz clic si te atreves:\n${url}\n\n¡Propaga el "virus" de la diversión! 😄`);
+            
+            // Detectar si es móvil para abrir WhatsApp Web o App
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                window.open(`whatsapp://send?text=${message}`, '_blank');
+            } else {
+                window.open(`https://web.whatsapp.com/send?text=${message}`, '_blank');
+            }
+        }
+
+        // Inicializar partículas
+        createParticles();
+        
+        // Crear nuevas partículas cada cierto tiempo
+        setInterval(createParticles, 4000);
+
+        // Detectar cuando se comparte en WhatsApp
+        document.addEventListener('click', () => {
+            console.log('🦠 ¡El virus se está propagando!');
         });
-    } else {
-        showWindow();
-    }
-}
-
-/* ================= VENTANA FINAL ================= */
-function showWindow() {
-    document.getElementById("screen").innerHTML = `
-        <div class="window">
-            <h2>⚠ SISTEMA INESTABLE ⚠</h2>
-            <p>Se detectó corrupción en procesos internos.</p>
-            <p>¿Deseas continuar?</p>
-
-            <button onclick="alert('Proceso detenido')">Cancelar</button>
-            <button onclick="final()">Aceptar</button>
-        </div>
-    `;
-}
-
-/* FINAL SIMULADO */
-function final() {
-    document.body.innerHTML = `
-        <div style="color:#00ff00; font-family:monospace; text-align:center; padding-top:20%;">
-            <h1>✔ SECUENCIA COMPLETADA</h1>
-            <p>Entorno restaurado.</p>
-        </div>
-    `;
-}
-
-run();
-</script>
-
+    </script>
 </body>
 </html>
